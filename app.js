@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+mongoose = require('mongoose');
 var Olive = require('./models/oliveSchema');
 const connectionString = process.env.MONGO_CON
 
@@ -11,6 +12,7 @@ var usersRouter = require('./routes/users');
 var OlivesRouter = require('./routes/Olives');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
