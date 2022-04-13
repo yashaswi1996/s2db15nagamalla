@@ -4,11 +4,18 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const connectionString = process.env.MONGO_CON
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var OlivesRouter = require('./routes/Olives');
 var addmodsRouter = require('./routes/addmods');
 var selectorRouter = require('./routes/selector');
+
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 var app = express();
 
