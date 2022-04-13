@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var Olive = require('./models/oliveSchema');
 const connectionString = process.env.MONGO_CON
 
 var indexRouter = require('./routes/index');
@@ -34,6 +34,37 @@ app.use('/users', usersRouter);
 app.use('/Olives', OlivesRouter);
 app.use('/addmods', addmodsRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
+
+// We can seed the collection if needed on server start
+async function recreateDB() {
+  // Delete everything
+  await Olive.deleteMany();
+  let instance1 = new Icecream(
+    { Olives_color: "Blue", Olives_quantity: '2lb', Olives_cost: 7 });
+  instance1.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("First object saved")
+  });
+
+  let instance2 = new Icecream(
+    { Olives_color: "Green", Olives_quantity: '4lb', Olives_cost: 14 });
+  instance2.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Second object saved")
+  });
+
+  let instance3 = new Icecream(
+    {Olives_color: "Black", Olives_quantity: '6lb', Olives_cost: 21});
+  instance3.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log("Third object saved")
+  });
+}
+let reseed = true;
+if (reseed) { recreateDB(); }
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
